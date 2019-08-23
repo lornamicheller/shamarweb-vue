@@ -3,11 +3,12 @@
     <div class="container-fluid nav-bar">
       <div class="container">
         <nav class="navbar navbar-light bg-light">
-          <router-link to="/HomeFeed"><img src="../assets/shamar-logo.svg" height="40px"></router-link>
+          <img src="../assets/shamar-logo.svg" style="cursor: pointer" height="40px" @click="$router.push('/HomeFeed')">
           <div class="icons">
-            <router-link to="/Explore"><img src="../assets/ic_search_white_24.png" class="search-icon" width="20px" height="20px"></router-link>
-            <router-link to="/Profile"><img src="../assets/profileiconshamar.png" class="profile-icon" width="25px" height="25px"></router-link>
-            <img src="../assets/logout.png" class="profile-icon" width="25px" height="25px" style="cursor: pointer" @click="logoutUser">
+            <img src="../assets/ic_search_white_24.png" class="search-icon" width="20px" height="20px" style="cursor: pointer" v-show="$session.exists()" @click="$router.push('/Explore')">
+            <img src="../assets/profileiconshamar.png" class="profile-icon" width="25px" height="25px" style="cursor: pointer" v-show="$session.exists()" @click="$router.push('/Profile')">
+            <img src="../assets/logout.png" class="profile-icon" width="25px" height="25px" style="cursor: pointer" @click="logoutUser" v-show="$session.exists()">
+            <router-link to="/" style="color: black; font-weight: 700" v-show="$session.exists() == false">Log In</router-link>
           </div>
         </nav>
       </div>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+/* eslint-disable */
   import Parse from 'parse'
   export default {
     name: 'NavBar',

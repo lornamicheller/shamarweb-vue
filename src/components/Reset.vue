@@ -3,16 +3,14 @@
     <div class="container">
       <div class="card profile col-lg-5">
         <div class="card-body">
-          <div class="logo-title">
-          </div>
+            <router-link to="/"><a class="float-left" style="font-weight: 700;" href="#">Back</a></router-link>
+          <div class="logo-title"></div>
           <div class="form-item">
-            <input type="email" name="email" id="email" class="form-style" placeholder="email" autocomplete="off" v-model="email"/>
+            <p style="font-weight: 700;">Reset Password</p>
+            <input type="email" name="email" id="email" class="form-style" placeholder="email" autocomplete="off"
+              v-model="email" />
           </div>
-          <div class="form-item">
-            <input type="password" name="password" id="password" class="form-style" placeholder="password" v-model="password"/>
-          </div>
-          <router-link to="/Reset"><p><a href="#" style="font-weight: 700;">Forgot Password?</a></p></router-link>
-          <button class="btn btn-primary log-in" @click="loginUser">Log in</button>
+          <button class="btn btn-primary log-in" @click="loginUser">Send Email</button>
         </div>
       </div>
     </div>
@@ -26,26 +24,22 @@
     name: 'LogIn',
     data() {
       return {
-        email: null,
-        password: null
+        email: null
       }
     },
     methods: {
       loginUser() {
-        Parse.User.logIn(this.email, this.password).then((user) => {
-          this.$session.start();
-          this.$session.set('sessionToken', user.getSessionToken());
-          this.$session.set('user', user.attributes );
-          this.$session.set('userId', user.id );
-          console.log(this.$session.get('user'))
-          this.$router.push("/Profile");
-  
-        }).catch(error => {
-          console.error(error);
+        // Pass the username and password to logIn function
+        Parse.User.requestPasswordReset(this.email).then(() => {
+          alert("Email to reset password has been sent to" + this.email);
+          this.$router.push("/")
+        }).catch((error) => {
+          alert(error)
         })
       }
     }
   }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -53,7 +47,7 @@
   a {
     color: #393e49;
   }
-  
+
   .hello {
     height: 100vh;
     background: url('../assets/guy-headphones.png');
@@ -61,7 +55,7 @@
     background-position: right;
     padding-top: 60px;
   }
-  
+
   .profile {
     border-radius: 20px;
     margin: auto;
@@ -70,11 +64,11 @@
     box-shadow: 7px 8px 6px -6px rgb(105, 105, 105);
     margin-top: 200px;
   }
-  
+
   .profile .card-body {
     padding-top: 30px;
   }
-  
+
   .logo-title {
     background: url('../assets/shamar-logo.svg');
     width: 200px;
@@ -83,11 +77,11 @@
     margin: auto;
     margin-bottom: 10px;
   }
-  
+
   .profile .card-title {
     text-align: center;
   }
-  
+
   .log-in {
     background-color: #FF9300;
     color: white;
@@ -99,11 +93,11 @@
     padding-right: 90px;
     border-radius: 30px;
   }
-  
+
   .form-item {
     text-align: center;
   }
-  
+
   #email,
   #password {
     height: 50px;
@@ -114,16 +108,17 @@
     box-shadow: none;
     border: 1px solid #393e49;
   }
-  
+
   .card-body {
     text-align: center;
   }
-  
-   ::placeholder {
+
+  ::placeholder {
     padding-left: 15px;
   }
-  
+
   @media (max-width: 576px) {
+
     #email,
     #password {
       height: 50px;
@@ -134,6 +129,7 @@
       box-shadow: none;
       border: 1px solid #393e49;
     }
+
     .log-in {
       background-color: #FF9300;
       color: white;
@@ -145,4 +141,5 @@
       border-radius: 30px;
     }
   }
+
 </style>

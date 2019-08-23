@@ -6,9 +6,9 @@ import UserProfile from '@/components/UserProfile'
 import HomeFeed from '@/components/HomeFeed'
 import Explore from '@/components/Explore'
 import PostPage from '@/components/PostPage'
-import ExplorerPage from '@/components/ExplorerPage'
 import PrivacyPolicy from '@/components/PrivacyPolicy'
 import TermsOfUse from '@/components/TermsOfUse'
+import Reset from '@/components/Reset'
 
 Vue.use(Router)
 
@@ -45,11 +45,6 @@ export default new Router({
       component: PostPage
     },
     {
-      path: '/ExplorerPage',
-      name: 'ExplorerPage',
-      component: ExplorerPage
-    },
-    {
       path: '/TermsOfUse',
       name: 'TermsOfUse',
       component: TermsOfUse
@@ -58,6 +53,11 @@ export default new Router({
       path: '/PrivacyPolicy',
       name: 'PrivacyPolicy',
       component: PrivacyPolicy
+    },
+    {
+      path: '/Reset',
+      name: 'Reset',
+      component: Reset
     }
   ]
 })
